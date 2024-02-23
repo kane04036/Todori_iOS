@@ -13,7 +13,7 @@ class BottomSheetViewController: UIViewController{
     var delegate: BottomSheetViewControllerDelegate?
     var bottomSheetView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.defaultColor
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         return view
@@ -22,13 +22,13 @@ class BottomSheetViewController: UIViewController{
         var view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 4.5
-        view.backgroundColor = .purple
+        view.backgroundColor = .gray //임의
         return view
     }()
     var titleTextFieldInBottomSheet: UITextField = {
         var textfield = UITextField()
         textfield.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        textfield.textColor = .black
+        textfield.textColor = UIColor.textColor
         textfield.placeholder = "토도리스트 입력"
         return textfield
     }()
@@ -42,12 +42,12 @@ class BottomSheetViewController: UIViewController{
     var descriptionBackgroundView: UIView = UIView()
     var descriptionTextView: UITextView = {
         var textview = UITextView()
-        textview.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
         textview.font = UIFont.systemFont(ofSize: 14, weight: .light)
         textview.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textview.clipsToBounds = true
         textview.layer.cornerRadius = 10
-        textview.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
+        textview.textColor = UIColor.textColor
+        textview.backgroundColor = UIColor.descriptionBackground
         textview.textContainer.lineBreakMode = .byCharWrapping
         return textview
     }()
@@ -55,7 +55,6 @@ class BottomSheetViewController: UIViewController{
     var blackViewOfBottomSheet: UIView = {
         var view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
         return view
     }()
     var blackViewOfDatePicker: UIView = {
@@ -71,13 +70,13 @@ class BottomSheetViewController: UIViewController{
         var label = UILabel()
         label.text = "시간"
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textColor
         return label
     }()
     var timeLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .black
+        label.textColor = .textColor
         label.isUserInteractionEnabled = true
         return label
     }()
@@ -86,7 +85,7 @@ class BottomSheetViewController: UIViewController{
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         view.clipsToBounds = true
-        view.backgroundColor = .white
+        view.backgroundColor = .defaultColor
         return view
     }()
     var datePicker: UIDatePicker = {
@@ -796,7 +795,7 @@ extension BottomSheetViewController: UITextViewDelegate{
         //text view의 placeholder 구현
         if textView.text == textviewPlaceholder{
             textView.text = ""
-            textView.textColor = .black
+            textView.textColor = .textColor
             textView.sizeToFit()
         }
         

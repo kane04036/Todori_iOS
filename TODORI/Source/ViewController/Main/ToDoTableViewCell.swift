@@ -70,12 +70,13 @@ class ToDoTableViewCell: UITableViewCell {
     
     //컴포넌트 외형 설정
     private func setAppearence(){
-        cellBackgroundView.backgroundColor = .white
+        cellBackgroundView.backgroundColor = UIColor.defaultColor
         cellBackgroundView.layer.cornerRadius = 10
         cellBackgroundView.clipsToBounds = true
         self.backgroundColor = .clear
         
         titleTextField.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        titleTextField.textColor = UIColor.textColor
         checkbox.image = UIImage(named: "checkbox")
         
     }

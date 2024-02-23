@@ -145,5 +145,62 @@ class FriendService {
         
     }
     
+    func deleteFriend(friend: Friend, completion: @escaping(AFResult<Any>) -> Void){
+        let url = APIConstant.baseURL + APIConstant.Friend.deleteFriend
+        
+        guard let token = TokenManager.shared.getToken() else {print("no token"); return}
+        print("token: \(token)")
+        
+        let header: HTTPHeaders = ["Content-Type" : "application/json",
+                                   "Authorization": "Token \(token)"]
+        
+        let parameter: [String: String] = [
+            "target": friend.email
+        ]
+        
+        AF.request(url, method: .post, parameters: parameter,encoding: JSONEncoding.default ,headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ResultCodeResponse.self) { (response) in
+                switch(response.result) {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func searchTodo(friend: Friend, date: [String:String], completion: @escaping(AFResult<Any>) -> Void){
+        let url = APIConstant.baseURL + APIConstant.Friend.searchTodo
+        
+        guard let token = TokenManager.shared.getToken() else {print("no token"); return}
+        print("token: \(token)")
+        
+        let header: HTTPHeaders = ["Content-Type" : "application/json",
+                                   "Authorization": "Token \(token)"]
+        
+        guard let year = date["year"] else {return}
+        guard let month = date["month"] else {return}
+        guard let day = date["day"] else {return}
+        
+        let parameter: [String: String] = [
+            "year": year,
+            "month": month,
+            "day": day,
+            "friend": friend.email
+        ]
+        
+        AF.request(url, method: .get, parameters: parameter,encoding: URLEncoding.queryString ,headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: TodoSearchResponseData.self) { (response) in
+                switch(response.result) {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        
+    }
     
 }

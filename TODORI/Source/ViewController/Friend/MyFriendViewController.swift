@@ -26,6 +26,14 @@ class MyFriendViewController: UIViewController {
         return stackview
     }()
     
+    var deleteButtonBlackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+        return view
+    }()
+
+
+    
     let orangeBorderColor = UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1).cgColor
     let orangeBackgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
     let grayBorderColor = UIColor(red: 0.867, green: 0.859, blue: 0.859, alpha: 1).cgColor
@@ -45,6 +53,8 @@ class MyFriendViewController: UIViewController {
     private func setUI(){
         buttonStackView.addArrangedSubviews([entireButton, favoriteButton, managementButton])
         self.view.addSubViews([buttonStackView, tableView])
+
+        
         entireButton.layer.borderColor = orangeBorderColor
         entireButton.backgroundColor = orangeBackgroundColor
         
@@ -71,7 +81,7 @@ class MyFriendViewController: UIViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
         }
                 
     }
@@ -133,6 +143,25 @@ class MyFriendViewController: UIViewController {
         tableView.reloadData()
     }
     
+    private func tapDeleteButton(){
+        print("tap delete button")
+        let deletePopupVC = DeleteFriendPopupViewController()
+        guard let deletePopupView = deletePopupVC.view else {
+            print("no view")
+            return
+        }
+        view.addSubview(deleteButtonBlackView)
+        view.addSubview(deletePopupView)
+        
+        deleteButtonBlackView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalToSuperview()
+        }
+        
+        deletePopupView.snp.makeConstraints({ make in
+            make.centerX.centerY.equalToSuperview()
+        })
+    }
+    
 }
 extension MyFriendViewController{
     private func searchFriend(){
@@ -163,6 +192,12 @@ extension MyFriendViewController: UITableViewDelegate{
 }
 
 extension MyFriendViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let friend = friendList[indexPath.row]
+        let nextVC = FriendToDoViewController()
+        nextVC.friend = friend
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friendList.count
     }
@@ -173,6 +208,7 @@ extension MyFriendViewController: UITableViewDataSource{
         switch(tabStatus){
         case 0, 1:
             let cell = FriendTableViewCell()
+            cell.selectionStyle = .none
             cell.imageString = friend.image
             cell.nicknameLabel.text = friend.nickname
             cell.starButton.setImage(friend.star! ? UIImage(named: "star-on") : UIImage(named: "star-off"), for: .normal)
@@ -180,12 +216,16 @@ extension MyFriendViewController: UITableViewDataSource{
             cell.delegate = self
             return cell
         case 2:
-            let cell = DeleteFriendTableViewCell()
+            let cell = DeleteFriendTableViewCell(buttonFunction: tapDeleteButton)
+            cell.selectionStyle = .none
             cell.imageString = friend.image
             cell.nicknameLabel.text = friend.nickname
+            cell.friend = friend
+            cell.delegate = self
             return cell
         default:
             let cell = FriendTableViewCell()
+            cell.selectionStyle = .none
             cell.imageString = friend.image
             cell.nicknameLabel.text = friend.nickname
             cell.friend = friend
@@ -204,6 +244,17 @@ extension MyFriendViewController: FriendTableViewCellDelegate {
             tableView.reloadData()
             sortByNickname()
             sortByStar()
+        }
+    }
+}
+
+extension MyFriendViewController: DeleteFriendTableViewCellDelegate{
+    func deleteFriend(friend: Friend) {
+        if let row = friendList.firstIndex(where: { person in
+            person.email == friend.email
+        }){
+            friendList.remove(at: row)
+            tableView.reloadData()
         }
     }
 }

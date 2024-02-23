@@ -46,5 +46,7 @@ enum APIConstant {
         static let searchFriend: String = "/account/my_friends/"
         static let handleRequest: String = "/account/check_req_friend/"
         static let updateStar: String = "/account/update_star/"
+        static let deleteFriend: String = "/account/del_friend/"
+        static let searchTodo: String = "/todo/todo_friend/"
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class MyPageViewController: UIViewController {
     var dimmingView: UIView?
@@ -20,6 +21,8 @@ class MyPageViewController: UIViewController {
     private let settingGroupButton: UIButton = ButtonManager.shared.getSettingGroupButton()
     private let logoutButton: UIButton = ButtonManager.shared.getLogoutButton()
     
+    private var adView: GADBannerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -31,6 +34,7 @@ class MyPageViewController: UIViewController {
         logoutButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
         setupUI()
+        setAD()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,6 +161,26 @@ class MyPageViewController: UIViewController {
             make.top.equalTo(underlineViews[3].snp.bottom).offset(21)
             make.leading.equalToSuperview().offset(22)
         }
+    }
+    
+    private func setAD() {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: 270, height: 160))
+        adView = GADBannerView(adSize: adSize)
+        adView.delegate = self
+                
+        self.view.addSubview(adView)
+        
+        adView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-91)
+            make.leading.equalToSuperview().offset(22)
+            make.trailing.equalToSuperview().offset(-22)
+            make.height.equalTo(200)
+        }
+        
+        adView.adUnitID = "ca-app-pub-8986601823711991/7693879882"
+        adView.rootViewController = self
+        
+        adView.load(GADRequest())
     }
     
     @objc func editProfileButtonTapped() {
@@ -286,5 +310,31 @@ class MyPageViewController: UIViewController {
 extension MyPageViewController: TwoButtonPopupViewDelegate {
     func buttonTappedDelegate() {
         logout()
+    }
+}
+
+extension MyPageViewController: GADBannerViewDelegate {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("bannerViewDidReceiveAd")
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+      print("bannerViewDidRecordImpression")
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillPresentScreen")
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillDIsmissScreen")
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewDidDismissScreen")
     }
 }

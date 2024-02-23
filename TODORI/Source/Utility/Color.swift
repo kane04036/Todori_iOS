@@ -20,17 +20,17 @@ class Color {
     
     static let shared = Color()
     
-    var UIColorArray:[UIColor] = [UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1),UIColor(red: 1, green: 0.863, blue: 0.658, alpha: 1),UIColor(red: 0.696, green: 0.879, blue: 0.813, alpha: 1),UIColor(red: 0.718, green: 0.845, blue: 0.962, alpha: 1),UIColor(red: 1, green: 0.721, blue: 0.922, alpha: 1),UIColor(red: 0.712, green: 0.694, blue: 0.925, alpha: 1)]
+    var UIColorArray:[UIColor] = [.todoriRed!, .todoriYellow!, .todoriGreen!, .todoriBlue!, .todoriPink!, .todoriPurple!]
     
     func getColor(colorNum:Int) -> UIColor{
         var color: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         switch(colorNum){
-        case 1: color = UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1)
-        case 2: color = UIColor(red: 1, green: 0.863, blue: 0.658, alpha: 1)
-        case 3: color = UIColor(red: 0.696, green: 0.879, blue: 0.813, alpha: 1)
-        case 4: color = UIColor(red: 0.718, green: 0.845, blue: 0.962, alpha: 1)
-        case 5: color = UIColor(red: 1, green: 0.721, blue: 0.922, alpha: 1)
-        case 6: color = UIColor(red: 0.712, green: 0.694, blue: 0.925, alpha: 1)
+        case 1: color = .todoriRed!
+        case 2: color = .todoriYellow!
+        case 3: color = .todoriGreen!
+        case 4: color = .todoriBlue!
+        case 5: color = .todoriPink!
+        case 6: color = .todoriPurple!
         default: break
         }
         return color
@@ -39,12 +39,12 @@ class Color {
     func getColor(colorNumString:Character) -> UIColor{
         var color: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         switch(colorNumString){
-        case "1": color = UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1)
-        case "2": color = UIColor(red: 1, green: 0.863, blue: 0.658, alpha: 1)
-        case "3": color = UIColor(red: 0.696, green: 0.879, blue: 0.813, alpha: 1)
-        case "4": color = UIColor(red: 0.718, green: 0.845, blue: 0.962, alpha: 1)
-        case "5": color = UIColor(red: 1, green: 0.721, blue: 0.922, alpha: 1)
-        case "6": color = UIColor(red: 0.712, green: 0.694, blue: 0.925, alpha: 1)
+        case "1": color = .todoriRed!
+        case "2": color = .todoriYellow!
+        case "3": color = .todoriGreen!
+        case "4": color = .todoriBlue!
+        case "5": color = .todoriPink!
+        case "6": color = .todoriPurple!
         default: break
         }
         return color
@@ -79,4 +79,25 @@ class Color {
         return image
     }
     
+}
+extension UIColor {
+    static let defaultColor = UIColor(named: "defaultColor")
+    static let backgroundColor = UIColor(named: "background")
+    static let lineColor = UIColor(named: "lineColor")
+    static let textColor = UIColor(named: "textColor")
+    static let shadowColor = UIColor(named: "shadowColor")
+    static let calendarNotThisMonthTextColor = UIColor(named: "calendarNotThisMonthTextColor")
+    static let todoriRed = UIColor(named: "todoriRed")
+    static let todoriYellow = UIColor(named: "todoriYellow")
+    static let todoriGreen = UIColor(named: "todoriGreen")
+    static let todoriBlue = UIColor(named: "todoriBlue")
+    static let todoriPink = UIColor(named: "todoriPink")
+    static let todoriPurple = UIColor(named: "todoriPurple")
+    static let descriptionBackground = UIColor(named: "descriptionBackground")
+    static let selectionColor = UIColor(named: "selectionColor")
+    static let todaySelectionColor = UIColor(named: "todaySelectionColor")
+    static let sundayLightColor = UIColor(named: "sundayLightColor")
+    static let sundayDarkColor = UIColor(named: "sundayDarkColor")
+    static let todayTitleColor = UIColor(named: "todayTitleColor")
+    static let clearBackgroundColor = UIColor(named: "clearBackgroundColor")
 }

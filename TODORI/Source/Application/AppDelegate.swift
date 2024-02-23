@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseMessaging
 import Firebase
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -35,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
           }
         }
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["85a0cfb417fc588a284eae252a30ccdb"]
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         print("여기는 AppDelegate 입니다.")
         return true
     }
