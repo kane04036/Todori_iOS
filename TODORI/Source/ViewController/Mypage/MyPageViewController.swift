@@ -164,12 +164,11 @@ class MyPageViewController: UIViewController {
     }
     
     private func setAD() {
-        let adSize = GADAdSizeFromCGSize(CGSize(width: 270, height: 160))
-        adView = GADBannerView(adSize: adSize)
+        adView = GADBannerView()
+        self.view.addSubview(adView)
+
         adView.delegate = self
                 
-        self.view.addSubview(adView)
-        
         adView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-91)
             make.leading.equalToSuperview().offset(22)

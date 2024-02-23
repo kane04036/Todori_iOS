@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import GoogleMobileAds
 
 class BottomSheetViewController: UIViewController{
     var todo: ToDo?
@@ -14,8 +15,6 @@ class BottomSheetViewController: UIViewController{
     var bottomSheetView: UIView = {
         var view = UIView()
         view.backgroundColor = UIColor.defaultColor
-        view.layer.cornerRadius = 20
-        view.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         return view
     }()
     var colorBarViewInBottomsheet: UIView = {
@@ -190,6 +189,8 @@ class BottomSheetViewController: UIViewController{
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         return view
     }()
+    private var adView: GADBannerView!
+
     
     var bottomSheetHeightConstraint: ConstraintMakerEditable?
     var datePickerBackgroundViewHeightConstraint: ConstraintMakerEditable?
@@ -302,6 +303,7 @@ class BottomSheetViewController: UIViewController{
         }
         
         setUI()
+        setAD()
     }
     
     func addFunction(){
@@ -351,7 +353,7 @@ class BottomSheetViewController: UIViewController{
         
         colorBarViewInBottomsheet.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(25)
-            make.top.equalToSuperview().offset(40)
+            make.top.equalToSuperview().offset(25)
             make.width.equalTo(9)
             make.bottom.equalTo(titleTextFieldInBottomSheet)
         }
@@ -463,6 +465,28 @@ class BottomSheetViewController: UIViewController{
             make.centerY.equalTo(finishButton)
             make.left.equalToSuperview().offset(25)
         }
+    }
+    
+    private func setAD() {
+        adView = GADBannerView()
+        self.view.addSubview(adView)
+
+        adView.delegate = self
+                
+        adView.snp.makeConstraints { make in
+            make.bottom.equalTo(bottomSheetView.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(79)
+        }
+        
+//        adView.backgroundColor = UIColor(white: 0.85, alpha: 1)
+        adView.backgroundColor = .white
+        adView.layer.cornerRadius = 20
+        adView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
+        adView.adUnitID = "ca-app-pub-8986601823711991/2940100869"
+        adView.rootViewController = self
+        
+        adView.load(GADRequest())
     }
     
     private func setCalendarViewUI(){
@@ -671,15 +695,15 @@ class BottomSheetViewController: UIViewController{
             guard let lineHeight = descriptionTextView.font?.lineHeight else {return}
             if newSize.height/lineHeight < 6 {
                 UIView.animate(withDuration: 0.25, animations: {
-                    self.bottomSheetHeightConstraint?.constraint.update(offset: 270 + keyboardHeight + newSize.height - (lineHeight+updownSpace))
-                    self.bottomSheetHeight = 270 + keyboardHeight
+                    self.bottomSheetHeightConstraint?.constraint.update(offset: 255 + keyboardHeight + newSize.height - (lineHeight+updownSpace))
+                    self.bottomSheetHeight = 255 + keyboardHeight
                     self.view.layoutIfNeeded()
                 })
                 self.view.updateConstraints()
             }else{
                 UIView.animate(withDuration: 0.25, animations: {
-                    self.bottomSheetHeightConstraint?.constraint.update(offset: 270 + keyboardHeight + (24 + lineHeight * 4) - (lineHeight+updownSpace))
-                    self.bottomSheetHeight = 270 + keyboardHeight
+                    self.bottomSheetHeightConstraint?.constraint.update(offset: 255 + keyboardHeight + (24 + lineHeight * 4) - (lineHeight+updownSpace))
+                    self.bottomSheetHeight = 255 + keyboardHeight
                     self.view.layoutIfNeeded()
                 })
                 self.view.updateConstraints()
@@ -819,6 +843,31 @@ extension BottomSheetViewController: UITextViewDelegate{
             textView.invalidateIntrinsicContentSize()
             view.layoutIfNeeded()
         }
+    }
+}
+extension BottomSheetViewController: GADBannerViewDelegate {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("bannerViewDidReceiveAd")
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+      print("bannerViewDidRecordImpression")
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillPresentScreen")
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillDIsmissScreen")
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewDidDismissScreen")
     }
 }
 
