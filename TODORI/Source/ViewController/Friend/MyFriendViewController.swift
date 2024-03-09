@@ -144,22 +144,22 @@ class MyFriendViewController: UIViewController {
     }
     
     private func tapDeleteButton(){
-        print("tap delete button")
-        let deletePopupVC = DeleteFriendPopupViewController()
-        guard let deletePopupView = deletePopupVC.view else {
-            print("no view")
-            return
-        }
-        view.addSubview(deleteButtonBlackView)
-        view.addSubview(deletePopupView)
-        
-        deleteButtonBlackView.snp.makeConstraints { make in
-            make.left.right.top.bottom.equalToSuperview()
-        }
-        
-        deletePopupView.snp.makeConstraints({ make in
-            make.centerX.centerY.equalToSuperview()
-        })
+//        print("tap delete button")
+//        let deletePopupVC = DeleteFriendPopupViewController()
+//        guard let deletePopupView = deletePopupVC.view else {
+//            print("no view")
+//            return
+//        }
+//        view.addSubview(deleteButtonBlackView)
+//        view.addSubview(deletePopupView)
+//        
+//        deleteButtonBlackView.snp.makeConstraints { make in
+//            make.left.right.top.bottom.equalToSuperview()
+//        }
+//        
+//        deletePopupView.snp.makeConstraints({ make in
+//            make.centerX.centerY.equalToSuperview()
+//        })
     }
     
 }

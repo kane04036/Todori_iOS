@@ -47,19 +47,11 @@ class FriendManagementViewController: UIViewController{
         addFunction()
         changeView(viewController: MyFriendViewController())
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "친구관리", showSeparator: false)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    }
+
     
     private func setUI(){
         self.view.backgroundColor = .white
-        
-//        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "친구관리", showSeparator: false)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "친구관리")
         
         buttonStackView.addArrangedSubviews([myFriendButton, recievingRequestButton, addButton])
         self.view.addSubview(buttonStackView)

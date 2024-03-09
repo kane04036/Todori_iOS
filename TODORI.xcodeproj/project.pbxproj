@@ -14,12 +14,17 @@
 		3E16E6282ACFEA030001E4C0 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E6272ACFEA030001E4C0 /* Friend.swift */; };
 		3E16E62A2ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E6292ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift */; };
 		3E16E62C2ACFF0CB0001E4C0 /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E62B2ACFF0CB0001E4C0 /* FriendService.swift */; };
+		3E28C0232B88B6740002E94E /* DeleteFriendPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0202B88B6740002E94E /* DeleteFriendPopupViewController.swift */; };
+		3E28C0242B88B6740002E94E /* FriendToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0212B88B6740002E94E /* FriendToDoViewController.swift */; };
+		3E28C0252B88B6740002E94E /* TestCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0222B88B6740002E94E /* TestCalendarViewController.swift */; };
+		3E28C0282B88B7430002E94E /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3E28C0272B88B7430002E94E /* GoogleMobileAds */; };
 		3E45D56F2A812E1700FC262F /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45D56E2A812E1700FC262F /* BottomSheetViewController.swift */; };
 		3E9CB2222AAC8C7B00C39625 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9CB2212AAC8C7B00C39625 /* FSCalendar */; };
 		3E9E4D982AD85ED8004EDAB6 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E4D972AD85ED8004EDAB6 /* FriendTableViewCell.swift */; };
 		3E9E4D9A2AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E4D992AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift */; };
 		3EABEBD52ABC2A1E007D27AA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3EABEBD42ABC2A1E007D27AA /* FirebaseMessaging */; };
 		3EABEBD92ABC2D9F007D27AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EABEBD82ABC2D9F007D27AA /* GoogleService-Info.plist */; };
+		3EFFEDBD2B9A339100849C1C /* FriendTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFEDBC2B9A339100849C1C /* FriendTodoTableViewCell.swift */; };
 		7E06F0182A0F76A8001EF117 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06F0172A0F76A8001EF117 /* MyPageViewController.swift */; };
 		7E0710512A26AF2A00BD8AC7 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0710502A26AF2A00BD8AC7 /* DateFormat.swift */; };
 		7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0BF87D29EF8221003291B9 /* SnapKit */; };
@@ -75,11 +80,15 @@
 		3E16E6272ACFEA030001E4C0 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		3E16E6292ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedRequestTableViewCell.swift; sourceTree = "<group>"; };
 		3E16E62B2ACFF0CB0001E4C0 /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		3E28C0202B88B6740002E94E /* DeleteFriendPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteFriendPopupViewController.swift; sourceTree = "<group>"; };
+		3E28C0212B88B6740002E94E /* FriendToDoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendToDoViewController.swift; sourceTree = "<group>"; };
+		3E28C0222B88B6740002E94E /* TestCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCalendarViewController.swift; sourceTree = "<group>"; };
 		3E45D56E2A812E1700FC262F /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3E9E4D972AD85ED8004EDAB6 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		3E9E4D992AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFriendTableViewCell.swift; sourceTree = "<group>"; };
 		3EABEBD82ABC2D9F007D27AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3EABEBDA2ABC3103007D27AA /* TODORIDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TODORIDebug.entitlements; sourceTree = "<group>"; };
+		3EFFEDBC2B9A339100849C1C /* FriendTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTodoTableViewCell.swift; sourceTree = "<group>"; };
 		7E06F0172A0F76A8001EF117 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		7E0710502A26AF2A00BD8AC7 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +145,7 @@
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
 				3E9CB2222AAC8C7B00C39625 /* FSCalendar in Frameworks */,
 				7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */,
+				3E28C0282B88B7430002E94E /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,10 +158,14 @@
 				3E16E61F2ACC87890001E4C0 /* FriendManagementViewController.swift */,
 				3E16E6212ACF0AAE0001E4C0 /* AddViewController.swift */,
 				3E16E6232ACF236D0001E4C0 /* MyFriendViewController.swift */,
+				3E28C0202B88B6740002E94E /* DeleteFriendPopupViewController.swift */,
+				3E28C0212B88B6740002E94E /* FriendToDoViewController.swift */,
+				3E28C0222B88B6740002E94E /* TestCalendarViewController.swift */,
 				3E16E6252ACF23BE0001E4C0 /* RecievedRequestViewController.swift */,
 				3E16E6292ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift */,
 				3E9E4D972AD85ED8004EDAB6 /* FriendTableViewCell.swift */,
 				3E9E4D992AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift */,
+				3EFFEDBC2B9A339100849C1C /* FriendTodoTableViewCell.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -394,6 +408,7 @@
 				7E2E65B32A3D4549000D7296 /* Lottie */,
 				3E9CB2212AAC8C7B00C39625 /* FSCalendar */,
 				3EABEBD42ABC2A1E007D27AA /* FirebaseMessaging */,
+				3E28C0272B88B7430002E94E /* GoogleMobileAds */,
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -430,6 +445,7 @@
 				7EB85D552A14544B00AAF263 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				7E2E65B22A3D4549000D7296 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				3EABEBD32ABC2A1E007D27AA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3E28C0262B88B7430002E94E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -460,8 +476,10 @@
 				3E16E6242ACF236D0001E4C0 /* MyFriendViewController.swift in Sources */,
 				7E06F0182A0F76A8001EF117 /* MyPageViewController.swift in Sources */,
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
+				3EFFEDBD2B9A339100849C1C /* FriendTodoTableViewCell.swift in Sources */,
 				7E4341922A39ADE4009CBAB7 /* OneButtonPopupView.swift in Sources */,
 				7EB85D522A144AE700AAF263 /* AccountService.swift in Sources */,
+				3E28C0252B88B6740002E94E /* TestCalendarViewController.swift in Sources */,
 				7E3B6EA82A42D839008E49B4 /* LabelManager.swift in Sources */,
 				3E9E4D9A2AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift in Sources */,
 				3E9E4D982AD85ED8004EDAB6 /* FriendTableViewCell.swift in Sources */,
@@ -487,6 +505,7 @@
 				7EA36B052A445D78005B4D08 /* ImageViewMangager.swift in Sources */,
 				3E16E6202ACC87890001E4C0 /* FriendManagementViewController.swift in Sources */,
 				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
+				3E28C0232B88B6740002E94E /* DeleteFriendPopupViewController.swift in Sources */,
 				7EB1CBCA2A1E110400B87694 /* ResponseModel.swift in Sources */,
 				7ED699102A011934008C2374 /* NetworkResult.swift in Sources */,
 				7E966A142A1C5AC3001303A5 /* UIButton+ColorAnimation.swift in Sources */,
@@ -498,6 +517,7 @@
 				7EA36B012A445323005B4D08 /* TextFieldManager.swift in Sources */,
 				3E16E6222ACF0AAE0001E4C0 /* AddViewController.swift in Sources */,
 				7E27869C2A2E05280082AA1B /* ButtonManager.swift in Sources */,
+				3E28C0242B88B6740002E94E /* FriendToDoViewController.swift in Sources */,
 				7E19483A2A1492D1008EA0A2 /* Extensions.swift in Sources */,
 				7EA36B032A445581005B4D08 /* ViewManager.swift in Sources */,
 				7E74A70B2A2D858900CE3B09 /* NavigationBarManager.swift in Sources */,
@@ -726,6 +746,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E28C0262B88B7430002E94E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.1;
+			};
+		};
 		3EABEBD32ABC2A1E007D27AA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -777,6 +805,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E28C0272B88B7430002E94E /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E28C0262B88B7430002E94E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		3E9CB2212AAC8C7B00C39625 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */;

@@ -11,6 +11,7 @@ import FSCalendar
 class FriendToDoViewController: UIViewController {
     var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
         return tableView
     }()
@@ -375,9 +376,7 @@ extension FriendToDoViewController{
             case .success(let resultData):
                 print("good friend")
                 if let data = resultData as? TodoSearchResponseData{
-                    print("decode error")
                     if data.resultCode == 200 {
-                        print("decode gooe")
                         self.todoArrayList[0].removeAll()
                         self.todoArrayList[1].removeAll()
                         self.todoArrayList[2].removeAll()
@@ -472,14 +471,10 @@ extension FriendToDoViewController: UITableViewDelegate, UITableViewDataSource{
     
     //cell 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ToDoTableViewCell()
+        let cell = FriendTodoTableViewCell()
         let todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
         cell.selectionStyle = .none
         cell.todo = todo
-        cell.titleTextField.text = todo.title
-        cell.section = indexPath.section
-        cell.row = indexPath.row
-        cell.checkbox.image = todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color):UIImage(named: "checkbox")
         return cell
     }
     

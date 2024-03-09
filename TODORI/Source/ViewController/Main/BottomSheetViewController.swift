@@ -315,6 +315,7 @@ class BottomSheetViewController: UIViewController{
         finishButton.addTarget(self, action: #selector(tapFinishButton), for: .touchDown)
         circleButtonArray.forEach({$0.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)})
         dateLabelInBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDateLabel)))
+        titleTextFieldInBottomSheet.addTarget(self, action: #selector(handleBottomSheetBlackViewDismiss), for: .editingDidEndOnExit)
     }
     
     func setUI(){
@@ -479,7 +480,6 @@ class BottomSheetViewController: UIViewController{
             make.height.equalTo(79)
         }
         
-//        adView.backgroundColor = UIColor(white: 0.85, alpha: 1)
         adView.backgroundColor = .white
         adView.layer.cornerRadius = 20
         adView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]

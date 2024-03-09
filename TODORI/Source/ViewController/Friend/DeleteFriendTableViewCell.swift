@@ -81,23 +81,23 @@ class DeleteFriendTableViewCell: UITableViewCell {
     }
     
     @objc private func tapDeleteButton(){
-        deleteButtonFunction()
-//        guard let friend = friend else {print("no friend");return}
-//        FriendService.shared.deleteFriend(friend: friend) { response in
-//            switch(response){
-//            case .success(let data):
-//                if let result = data as? ResultCodeResponse {
-//                    if result.resultCode == 200 {
-//                        self.delegate?.deleteFriend(friend: friend)
-//                        print("del friend 200")
-//                    }else {
-//                        print("del friend error")
-//                    }
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+//        deleteButtonFunction()
+        guard let friend = friend else {print("no friend");return}
+        FriendService.shared.deleteFriend(friend: friend) { response in
+            switch(response){
+            case .success(let data):
+                if let result = data as? ResultCodeResponse {
+                    if result.resultCode == 200 {
+                        self.delegate?.deleteFriend(friend: friend)
+                        print("del friend 200")
+                    }else {
+                        print("del friend error")
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
 }

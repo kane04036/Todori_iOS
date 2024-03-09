@@ -46,6 +46,10 @@ class FriendTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(todo: ToDo) {
+        self.todo
+    }
+    
     private func addFunction(){
         starButton.addTarget(self, action: #selector(tapFavoriteButton), for: .touchDown)
     }
