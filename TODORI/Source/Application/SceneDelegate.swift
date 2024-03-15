@@ -38,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             print("isAutoLogin: false")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.window?.rootViewController = UINavigationController(rootViewController: ToDoMainViewController())
+                self.window?.rootViewController = UINavigationController(rootViewController: LogInViewController())
                 self.window?.makeKeyAndVisible()
             }
         }

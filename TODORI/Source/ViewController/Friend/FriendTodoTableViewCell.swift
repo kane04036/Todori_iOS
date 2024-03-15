@@ -11,10 +11,12 @@ class FriendTodoTableViewCell: UITableViewCell {
     var checkbox: UIImageView = UIImageView()
     var titleTextField: UITextField = UITextField()
     var cellBackgroundView: UIView = UIView()
-    var todo: ToDo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
+    var todo: ToDo
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    init(todo: ToDo) {
+        self.todo = todo
         super.init(style: .default, reuseIdentifier: "TodoCell")
+        
         titleTextField.isEnabled = false
         self.checkbox.image = todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color) : UIImage(named: "checkbox")
         self.titleTextField.text = todo.title

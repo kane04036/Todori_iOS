@@ -203,4 +203,37 @@ class FriendService {
         
     }
     
+    func getFriendDayOfDot(friend: Friend, year:Int, month:Int, completion:@escaping(AFResult<Any>) -> Void){
+        let url = APIConstant.testURL + APIConstant.Friend.day
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameters: Parameters = [
+            "year" : year,
+            "month" : month,
+            "friend": friend.email
+        ]
+        
+        AF.request(url,
+                   method: .get,
+                   parameters: parameters,
+                   headers: header)
+        .validate(statusCode: 200 ..< 300)
+        .responseDecodable(of: DayDotResponseData.self) { response in
+            switch response.result{
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    
 }

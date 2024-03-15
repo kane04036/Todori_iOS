@@ -8,8 +8,8 @@
 import Foundation
 
 enum APIConstant {
-    static let baseURL = "https://plotustodo-ctzhc.run.goorm.io"
-    static let testURL = "https://plotustodo-ctzhc.run.goorm.io"
+    static let baseURL = "http:35.225.210.179:8000"
+    static let testURL = "http:35.225.210.179:8000"
     
     enum Account {
         static let emailCode = baseURL + "/account/emailcode/"
@@ -48,5 +48,7 @@ enum APIConstant {
         static let updateStar: String = "/account/update_star/"
         static let deleteFriend: String = "/account/del_friend/"
         static let searchTodo: String = "/todo/todo_friend/"
+        static let day: String = "/todo/day_friend/"
+
     }
 }

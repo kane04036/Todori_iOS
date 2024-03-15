@@ -28,8 +28,7 @@ class FriendToDoViewController: UIViewController {
         calendarView.appearance.titleSelectionColor = .black
         calendarView.appearance.weekdayTextColor = .black
         calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red
-        calendarView.locale = Locale(identifier: "ko_KR")
-        
+        calendarView.locale = Locale(identifier: "ko_KR")        
         return calendarView
     }()
     var calendarBackgroundView: UIView = {
@@ -147,7 +146,8 @@ class FriendToDoViewController: UIViewController {
     var todoArrayList: [[ToDo]] = []
     var titleOfSectionArray: [String] = ["","","","","",""]
     var existingColorArray: [Int] = []
-    
+    var dotsArray: [Dots] = []
+
     
     var headerView = UIView()
     var friend: Friend?
@@ -165,7 +165,6 @@ class FriendToDoViewController: UIViewController {
         tableView.dataSource = self
         calendarView.delegate = self
         calendarView.dataSource = self
-        
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
 
         
@@ -185,6 +184,7 @@ class FriendToDoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         searchTodo(date: Date())
+        getDay(friend: friend, date: Date())
     }
     
     
@@ -290,8 +290,8 @@ class FriendToDoViewController: UIViewController {
         }
     }
 }
-extension FriendToDoViewController: FSCalendarDelegate, FSCalendarDataSource{
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {        
+extension FriendToDoViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let weekday = Calendar.current.component(.weekday, from: date)
         if weekday == 1 {
             calendar.cell(for: date, at: monthPosition)?.titleLabel.textColor = .red
@@ -306,6 +306,7 @@ extension FriendToDoViewController: FSCalendarDelegate, FSCalendarDataSource{
         dateLabel.text = DateFormat.shared.getdateLabelString(date: calendar.currentPage)
         calendarView.select(calendar.currentPage)
         searchTodo(date: calendar.currentPage)
+        getDay(friend: friend, date: calendar.currentPage)
     }
     
     
@@ -339,6 +340,96 @@ extension FriendToDoViewController: FSCalendarDelegate, FSCalendarDataSource{
             }
         }
     }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        if let dots = dotsArray.first(where: { $0.date == date }) {
+            return dots.color == "0" ? 0 : dots.color.count > 3 ? 3 : dots.color.count
+        } else {
+            return 0
+        }
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]?{
+        var colorArray: [UIColor] = []
+        if let dots = dotsArray.first(where: { $0.date == date }) {
+            if dots.color != "0"{
+                for colorNum in Array(dots.color){
+                    colorArray.append(Color.shared.getColor(colorNumString: colorNum))
+                }
+            }
+        }
+        return colorArray
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        var colorArray: [UIColor] = []
+        if let dots = dotsArray.first(where: { $0.date == date }) {
+            if dots.color != "0"{
+                for colorNum in Array(dots.color){
+                    colorArray.append(Color.shared.getColor(colorNumString: colorNum))
+                }
+            }
+        }
+        return colorArray
+    }
+}
+
+extension FriendToDoViewController: UITableViewDelegate, UITableViewDataSource{
+    //각 섹션 디자인 및 오토 레이아웃 적용
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view:UIView = UIView()
+        let colorRoundView:UIView = UIView()
+        let titleLabel:UILabel = UILabel()
+        
+        view.addSubview(colorRoundView)
+        view.addSubview(titleLabel)
+        
+        colorRoundView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(20)
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.height.equalTo(9)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(colorRoundView)
+            make.left.equalTo(colorRoundView.snp.right).offset(5)
+        }
+        
+        colorRoundView.clipsToBounds = true
+        colorRoundView.layer.cornerRadius = 4.5
+        colorRoundView.backgroundColor = Color.shared.UIColorArray[existingColorArray[section]]
+        
+        titleLabel.text = titleOfSectionArray[existingColorArray[section]]
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        titleLabel.textColor = UIColor.textColor
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        20
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return existingColorArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //현재 존재하는 그룹의 수 만큼 return
+        return todoArrayList[existingColorArray[section]].count
+    }
+    
+    //cell 설정
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
+        let cell = FriendTodoTableViewCell(todo: todo)
+        cell.selectionStyle = .none
+        cell.todo = todo
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        54
+    }
+    
 }
 extension FriendToDoViewController{
     struct TodoColor{
@@ -424,63 +515,40 @@ extension FriendToDoViewController{
             }
         }
     }
-}
-extension FriendToDoViewController: UITableViewDelegate, UITableViewDataSource{
-    //각 섹션 디자인 및 오토 레이아웃 적용
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view:UIView = UIView()
-        let colorRoundView:UIView = UIView()
-        let titleLabel:UILabel = UILabel()
-        
-        view.addSubview(colorRoundView)
-        view.addSubview(titleLabel)
-        
-        colorRoundView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.bottom.equalToSuperview().offset(-10)
-            make.width.height.equalTo(9)
+    
+    private func getDay(friend: Friend?, date: Date) {
+        guard let friend = friend else {
+            return
         }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(colorRoundView)
-            make.left.equalTo(colorRoundView.snp.right).offset(5)
+        let components = Calendar.current.dateComponents([.year, .month], from: date)
+        guard let year = components.year else {return}
+        guard let month = components.month else {return}
+        FriendService.shared.getFriendDayOfDot(friend: friend, year: year, month: month) { (response) in
+            switch(response){
+            case.success(let resultData):
+                if let data = resultData as? DayDotResponseData{
+                    print("aa")
+                    print(data.data)
+                    if data.resultCode == 200 {
+                        let dotStringArray = data.data.compactMap({String($0)})
+                        self.dotsArray.removeAll()
+                        for i in 0 ..< dotStringArray.count{
+                            var components = Calendar.current.dateComponents([.year, .month, .day], from: date)
+                            components.day = i
+                            self.dotsArray.append(Dots(date: Calendar.current.date(from: components)!, color: dotStringArray[i]))
+                        }
+                        self.calendarView.reloadData()
+                        
+                    }else{
+                        print("get day 500")
+                    }
+                }
+            case .failure(let error):
+                print(error)
+                
+            }
         }
-        
-        colorRoundView.clipsToBounds = true
-        colorRoundView.layer.cornerRadius = 4.5
-        colorRoundView.backgroundColor = Color.shared.UIColorArray[existingColorArray[section]]
-        
-        titleLabel.text = titleOfSectionArray[existingColorArray[section]]
-        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        titleLabel.textColor = UIColor.textColor
-        return view
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        20
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return existingColorArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //현재 존재하는 그룹의 수 만큼 return
-        return todoArrayList[existingColorArray[section]].count
-    }
-    
-    //cell 설정
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = FriendTodoTableViewCell()
-        let todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
-        cell.selectionStyle = .none
-        cell.todo = todo
-        return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        54
-    }
-    
+
 }
+

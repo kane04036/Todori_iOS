@@ -10,6 +10,11 @@ import SnapKit
 import FSCalendar
 import UserNotifications
 
+struct Dots{
+    var date: Date
+    var color: String
+}
+
 class ToDoMainViewController : UIViewController {
 
     private var overlayViewController: MyPageViewController?
@@ -63,10 +68,7 @@ class ToDoMainViewController : UIViewController {
     private var nowRow: Int = 0
     
     //여기서부터
-    struct Dots{
-        var date: Date
-        var color: String
-    }
+
     let dateArray: [String] = ["123", "", "","","15","","6"]
     var dotsArray: [Dots] = []
     var dotArray:[String] = []
@@ -905,7 +907,6 @@ extension ToDoMainViewController:FSCalendarDelegateAppearance, FSCalendarDataSou
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-//        return Color.shared.UIColorArray
         var colorArray: [UIColor] = []
         if let dots = dotsArray.first(where: { $0.date == date }) {
             if dots.color != "0"{
