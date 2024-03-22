@@ -100,7 +100,7 @@ class ToDoTableViewCell: UITableViewCell {
                     print(data.resultCode)
                     if data.resultCode == 200 {
                         self.todo.done = data.data.done
-                        self.checkbox.image = self.todo.done ? Color.shared.getCheckBoxImage(colorNum: self.todo.color):UIImage(named: "checkbox")
+                        self.checkbox.image = self.todo.done ? Color.shared.getCheckBoxImage(colorNum: self.todo.color) : UIImage(named: "checkbox")
                         self.delegate?.editDone(section: self.section, row: self.row, todo: self.todo)
                     }
                 }

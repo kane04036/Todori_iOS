@@ -18,7 +18,6 @@ class FriendTodoTableViewCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: "TodoCell")
         
         titleTextField.isEnabled = false
-        self.checkbox.image = todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color) : UIImage(named: "checkbox")
         self.titleTextField.text = todo.title
         
         self.addComponent()
@@ -69,8 +68,8 @@ class FriendTodoTableViewCell: UITableViewCell {
         
         titleTextField.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         titleTextField.textColor = UIColor.textColor
-        checkbox.image = UIImage(named: "checkbox")
-        
+        self.checkbox.image = todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color) : UIImage(named: "checkbox")
+
     }
 
 }

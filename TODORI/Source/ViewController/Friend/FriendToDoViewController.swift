@@ -120,7 +120,6 @@ class FriendToDoViewController: UIViewController {
         stackview.spacing = 6
         return stackview
     }()
-    var navigationBar = UINavigationBar()
     
     var nothingExistingView: UIView = {
         let view = UIView()
@@ -135,6 +134,18 @@ class FriendToDoViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.textColor = UIColor(red: 0.575, green: 0.561, blue: 0.561, alpha: 1) //라이트, 다크 동일
         return label
+    }()
+    var topBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    var backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "todori-back"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        return button
     }()
     
     var redArray: [ToDo] = []
@@ -166,8 +177,7 @@ class FriendToDoViewController: UIViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
-
-        
+        backButton.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         guard let friend = friend else {print("no frirend");return}
         if let image = profileImageView.image {
             profileImageView.image = image
@@ -191,10 +201,9 @@ class FriendToDoViewController: UIViewController {
     private func setUI(){
         self.view.backgroundColor = .white
         
-        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(tapBackButton), title: "",showSeparator: false)
+        self.topBarView.addSubview(backButton)
+        self.view.addSubview(topBarView)
         
-        navigationBar = navigationController!.navigationBar
-        self.view.addSubview(navigationBar)
         friendInfoStackView.addArrangedSubviews([profileImageView, nicknameLabel])
         dateStackView.addArrangedSubview(dateLabel)
         dayLabelStackView.addArrangedSubviews([dayLabel, weekdayLabel])
@@ -205,12 +214,24 @@ class FriendToDoViewController: UIViewController {
         nothingExistingView.addSubview(nothingExistingLabel)
         tableView.addSubview(nothingExistingView)
         
-        
+        self.view.backgroundColor = UIColor.white
         self.view.addSubview(tableView)
+        
+        topBarView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.height.equalTo(44)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+        }
+        backButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(20)
+            make.width.height.equalTo(22)
+        }
+            
         
         tableView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(navigationBar.snp.bottom)
+            make.top.equalTo(topBarView.snp.bottom)
     
         }
         
@@ -430,7 +451,13 @@ extension FriendToDoViewController: UITableViewDelegate, UITableViewDataSource{
         54
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.contentOffset.y = 0
+        }
+    }
 }
+
 extension FriendToDoViewController{
     struct TodoColor{
         let gary = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
@@ -445,7 +472,6 @@ extension FriendToDoViewController{
     //현재 존재하는 todo의 color을 따로 existingColorArray에 추가 및 투두 없음을 알리는 뷰 hidden 설정
     private func setExistArray(){
         existingColorArray.removeAll()
-        
         //1. 색깔별로 나눠져있는 배열을 하나씩 돌면서 투두가 있는지 확인
         for i in 0 ..< 6 {
             if todoArrayList[i].count > 0 {
@@ -478,7 +504,7 @@ extension FriendToDoViewController{
                         
                         for i in data.data{
                             self.todoArrayList[i.color - 1].append(ToDo(year: String(i.year), month: String(i.month), day: String(i.day), title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, time: i.time, description: i.description))
-                            print(i.title)
+                            print(i.done)
                         }
                         
                         for i in 0 ..< 6{
@@ -496,7 +522,8 @@ extension FriendToDoViewController{
     }
     
     private func getPriorityName(){
-        TodoService.shared.getPriorityName { (response) in
+        guard let friend = self.friend else {return}
+        FriendService.shared.getPriorityName(friend: friend) { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? PriorityResponseData{
@@ -552,3 +579,8 @@ extension FriendToDoViewController{
 
 }
 
+extension FriendToDoViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == tableView || touch.view == tableView.tableHeaderView || touch.view == calendarBackgroundView || touch.view == tableView.tableFooterView
+    }
+}

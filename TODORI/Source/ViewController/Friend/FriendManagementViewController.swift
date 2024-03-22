@@ -39,6 +39,18 @@ class FriendManagementViewController: UIViewController{
         return stackview
     }()
     
+    var topBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    var backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "todori-back"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        return button
+    }()
     var switchView: UIView = UIView()
     
     override func viewDidLoad() {
@@ -47,20 +59,36 @@ class FriendManagementViewController: UIViewController{
         addFunction()
         changeView(viewController: MyFriendViewController())
     }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
 
     
     private func setUI(){
         self.view.backgroundColor = .white
-        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "친구관리")
-        
+    
         buttonStackView.addArrangedSubviews([myFriendButton, recievingRequestButton, addButton])
+        self.topBarView.addSubview(backButton)
+        self.view.addSubview(topBarView)
         self.view.addSubview(buttonStackView)
         self.view.addSubview(selectedBarView)
         self.view.addSubview(grayBarView)
         self.view.addSubview(switchView)
+        
+        topBarView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.height.equalTo(44)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+        }
+        backButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(20)
+            make.width.height.equalTo(22)
+        }
                 
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(100)
+            make.top.equalTo(topBarView.snp.bottom)
             make.width.equalToSuperview()
             make.height.equalTo(40)
         }
@@ -88,6 +116,7 @@ class FriendManagementViewController: UIViewController{
         myFriendButton.addTarget(self, action: #selector(tapMyFriendButton), for: .touchDown)
         recievingRequestButton.addTarget(self, action: #selector(tapRecieveRequestButton), for: .touchDown)
         addButton.addTarget(self, action: #selector(tapAddButton), for: .touchDown)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     @objc private func backButtonTapped(){

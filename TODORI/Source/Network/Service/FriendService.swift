@@ -190,7 +190,9 @@ class FriendService {
             "friend": friend.email
         ]
         
-        AF.request(url, method: .get, parameters: parameter,encoding: URLEncoding.queryString ,headers: header)
+        AF.request(url, method: .get, parameters: parameter,
+                   encoding: URLEncoding.queryString,
+                   headers: header)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: TodoSearchResponseData.self) { (response) in
                 switch(response.result) {
@@ -227,6 +229,37 @@ class FriendService {
         .validate(statusCode: 200 ..< 300)
         .responseDecodable(of: DayDotResponseData.self) { response in
             switch response.result{
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getPriorityName(friend: Friend, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.Friend.category
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        
+        let parameters: Parameters = [
+            "friend" : friend.email
+        ]
+        
+        AF.request(url,
+                   method: .get,
+                   encoding: URLEncoding.queryString,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: PriorityResponseData.self) { response in
+            switch response.result {
             case .success(let response):
                 completion(.success(response))
             case .failure(let error):

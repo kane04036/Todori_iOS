@@ -722,6 +722,9 @@ extension ToDoMainViewController:UITableViewDelegate{
     //floating 설정
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
+        if offset < 0 {
+            scrollView.contentOffset.y = 0
+        }
         floatingButton.frame = CGRect(x: floatingButton.frame.origin.x, y: floatingButton_y + offset, width: self.view.fs_width * 0.16, height: self.view.fs_width * 0.16)
         collectionView.frame = CGRect(x: collectionView.frame.origin.x, y: floatingButton_y + offset - 10 - self.collectionView.fs_height , width: collectionView.fs_width, height: collectionView.fs_height)
     }
@@ -988,6 +991,8 @@ extension ToDoMainViewController:UICollectionViewDelegateFlowLayout{
     }
 }
 
+
+
 //cell 내부에서 변경된 사항을 메인 페이지에 적용시키기 위한 프로토콜
 extension ToDoMainViewController: TodoTableViewCellDelegate {
     
@@ -1035,7 +1040,6 @@ extension ToDoMainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == tableView || touch.view == tableView.tableHeaderView || touch.view == calendarBackgroundView || touch.view == tableView.tableFooterView
     }
-    
 }
 
 

@@ -66,6 +66,12 @@ extension AddViewController{
                 if let result = data as? ResultCodeResponse{
                     if result.resultCode == 200 {
                         print("request friend 200")
+                        let dimmingView = UIView(frame: UIScreen.main.bounds)
+                        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                        dimmingView.alpha = 0
+                        let pupup = OneButtonPopupView(title: "친구 추가", message: "친구 요청이 전송되었어요!", buttonText: "확인", buttonColor: UIColor.black, dimmingView: dimmingView)
+                        
+                        
                     }else{
                         print("request friend error")
                     }

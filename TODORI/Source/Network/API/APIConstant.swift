@@ -49,6 +49,6 @@ enum APIConstant {
         static let deleteFriend: String = "/account/del_friend/"
         static let searchTodo: String = "/todo/todo_friend/"
         static let day: String = "/todo/day_friend/"
-
+        static let category = "/todo/name/priority/"
     }
 }
